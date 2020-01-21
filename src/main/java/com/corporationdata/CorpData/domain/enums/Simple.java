@@ -1,10 +1,9 @@
 package com.corporationdata.CorpData.domain.enums;
 
 public enum Simple {
-	YES(1,"Sim"),
-	NO(2, "Nao"),
-	EXCLUDED(3, "Excluido"),
-	UNINFORMED(9, "Nao Informado");
+	YES(5,"OPTANTE PELO SIMPLES"),
+	NO(0, "NAO OPTANTE"),
+	EXCLUDED(6, "EXCLUIDO DO SIMPLES");
 	
 	private Integer code;
 	private String description;

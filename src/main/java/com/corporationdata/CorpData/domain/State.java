@@ -48,12 +48,12 @@ public class State implements Serializable{
 		this.name = name;
 	}
 
-	public List<City> getCitys() {
+	public List<City> getCities() {
 		return Cities;
 	}
 
-	public void setCitys(List<City> Citys) {
-		this.Cities = Citys;
+	public void setCities(List<City> Cities) {
+		this.Cities = Cities;
 	}
 
 	@Override

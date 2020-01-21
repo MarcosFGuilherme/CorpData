@@ -1,10 +1,10 @@
 package com.corporationdata.CorpData.domain.enums;
 
 public enum Size {
-	SMALL(1,"Pequena"),
-	AVERAGE(2, "Media"),
-	BIG(3, "Grande"),
-	UNINFORMED(9, "Nao Informada");
+	MICRO(1,"MICRO EMPRESA"),
+	SMALL(3, "EMPRESA DE PEQUENO PORTE"),
+	OHTERS(5, "DEMAIS"),
+	UNINFORMED(0, "NAO INFORMADO");
 	
 	private Integer code;
 	private String description;

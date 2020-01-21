@@ -1,9 +1,9 @@
 package com.corporationdata.CorpData.domain.enums;
 
 public enum Mei {
-	YES(1,"Sim"),
-	NO(2, "Nao"),
-	UNINFORMED(9, "Nao Informado");
+	YES(1,"SIM"),
+	NO(2, "NAO"),
+	OTHERS(0, "BRANCOS,ETC");
 	
 	private Integer code;
 	private String description;

@@ -3,7 +3,7 @@ package com.corporationdata.CorpData.domain.enums;
 public enum Status {
 	ACTIVE(1,"Ativa"),
 	INACTIVE(2, "Inativa"),
-	UNINFORMED(9, "Nao Informada");
+	OTHES(0, "BAIXADOS,INAMITOS, ETC");
 	
 	private Integer code;
 	private String description;

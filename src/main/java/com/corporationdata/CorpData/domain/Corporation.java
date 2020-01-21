@@ -27,7 +27,7 @@ public class Corporation implements Serializable{
 	private String fantasyName;
 	private Status status;
 	private Date statusDate;
-	private Date ActiveStartDate;
+	private Date activeStartDate;
 	@ManyToOne
 	@JoinColumn(name = "cnae_id")
 	private Cnae fiscalCnae;
@@ -39,7 +39,7 @@ public class Corporation implements Serializable{
 	private Simple	simpleOption;
 	private Mei	meiOption;
 	private String typeStreet;
-	private String Address;
+	private String address;
 	private String neighborhood;
 	private String	zipCode;
 	@ManyToOne
@@ -64,7 +64,7 @@ public class Corporation implements Serializable{
 		this.fantasyName = fantasyName;
 		this.status = status;
 		this.statusDate = statusDate;
-		this.ActiveStartDate = activeStartDate;
+		this.activeStartDate = activeStartDate;
 		this.fiscalCnae = fiscalCnae;
 		this.legalNature = legalNature;
 		this.sizeCompany = sizeCompany;
@@ -72,7 +72,7 @@ public class Corporation implements Serializable{
 		this.simpleOption = simpleOption;
 		this.meiOption = meiOption;
 		this.typeStreet = typeStreet;
-		this.Address = address;
+		this.address = address;
 		this.neighborhood = neighborhood;
 		this.zipCode = zipCode;
 		this.city = city;
@@ -122,11 +122,11 @@ public class Corporation implements Serializable{
 	}
 
 	public Date getActiveStartDate() {
-		return ActiveStartDate;
+		return activeStartDate;
 	}
 
 	public void setActiveStartDate(Date activeStartDate) {
-		ActiveStartDate = activeStartDate;
+		this.activeStartDate = activeStartDate;
 	}
 
 	public Cnae getFiscalCnae() {
@@ -186,11 +186,11 @@ public class Corporation implements Serializable{
 	}
 
 	public String getAddress() {
-		return Address;
+		return address;
 	}
 
 	public void setAddress(String address) {
-		Address = address;
+		this.address = address;
 	}
 
 	public String getNeighborhood() {
