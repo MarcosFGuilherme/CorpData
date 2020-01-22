@@ -6,25 +6,24 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.corporationdata.CorpData.domain.Cnae;
-import com.corporationdata.CorpData.domain.State;
-import com.corporationdata.CorpData.repositories.CnaeRepository;
+import com.corporationdata.CorpData.domain.LegalNature;
+import com.corporationdata.CorpData.repositories.LegalNatureRepository;
 import com.corporationdata.CorpData.services.exception.ObjectNotFoundException;
 
 @Service
-public class CnaeService {
+public class LegalNatureService {
 
 	@Autowired
-	private CnaeRepository repo;
+	private LegalNatureRepository repo;
 
-	public List<Cnae> findAll() {
+	public List<LegalNature> findAll() {
 		return repo.findAllByOrderByName();
 	}
 
-	public Cnae find(Integer id) {
-		Optional<Cnae> obj = repo.findById(id);
+	public LegalNature find(Integer id) {
+		Optional<LegalNature> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
-				"Objeto não encontrado! Id: " + id + ", Tipo: " + Cnae.class.getName()));
+				"Objeto não encontrado! Id: " + id + ", Tipo: " + LegalNature.class.getName()));
 	}
 	
 }

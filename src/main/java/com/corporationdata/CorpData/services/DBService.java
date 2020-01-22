@@ -49,6 +49,9 @@ public class DBService {
 	
 	@Autowired
 	private CnaeService cnaeService;
+	
+	@Autowired
+	private LegalNatureService legalNatureService;
 
 	public void instatiateTestDatabase() throws ParseException {
 		
@@ -235,7 +238,9 @@ public class DBService {
 					Integer cnaeId = Integer.parseInt(reg[6]);
 					Cnae fiscalCnae = cnaeService.find(cnaeId);
 					
-					LegalNature legalNature = null;
+					Integer legalNatureId = Integer.parseInt(reg[8]);
+					LegalNature legalNature = legalNatureService.find(legalNatureId);
+					
 					Size sizeCompany = null;
 					Double shareCapital = null;
 					Simple	simpleOption = null;

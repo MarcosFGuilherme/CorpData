@@ -14,5 +14,5 @@ import com.corporationdata.CorpData.domain.State;
 public interface CnaeRepository extends JpaRepository<Cnae, Integer> {
 	
 	@Transactional(readOnly = true)
-	public List<State> findAllByOrderByName();
+	public List<Cnae> findAllByOrderByName();
 }
