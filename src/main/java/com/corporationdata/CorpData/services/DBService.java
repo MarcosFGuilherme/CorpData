@@ -26,9 +26,11 @@ import com.corporationdata.CorpData.repositories.CorporationRepository;
 import com.corporationdata.CorpData.repositories.LegalNatureRepository;
 import com.corporationdata.CorpData.repositories.StateRepository;
 
+
 @Service
 public class DBService {
 
+		
 	@Autowired
 	private CityRepository cityRepository;
 
@@ -52,6 +54,9 @@ public class DBService {
 	
 	@Autowired
 	private LegalNatureService legalNatureService;
+	
+	@Autowired
+	private CityService	cityService;
 
 	public void instatiateTestDatabase() throws ParseException {
 		
@@ -249,7 +254,11 @@ public class DBService {
 					String address = reg[15];
 					String neighborhood = reg[16];
 					String	zipCode = reg[17];
-					City city = null;
+					
+					String uf = reg[18];
+					String nameCity = reg[19];
+					City city = cityService.findByNameAndUf(nameCity, uf);
+					
 					String number = reg[20];
 					String complement = reg[21];
 					String email = reg[26];
