@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
@@ -17,8 +15,8 @@ public class State implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	private String uf;
 	private String name;
 	@JsonIgnore
 	@OneToMany(mappedBy="state")
@@ -26,9 +24,10 @@ public class State implements Serializable{
 	
 	public State() {}
 
-	public State(Integer id, String name) {
+	public State(Integer id, String uf, String name) {
 		super();
 		this.id = id;
+		this.uf = uf;
 		this.name = name;
 	}
 
@@ -38,6 +37,14 @@ public class State implements Serializable{
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public String getUf() {
+		return uf;
+	}
+
+	public void setUf(String uf) {
+		this.uf = uf;
 	}
 
 	public String getname() {
@@ -52,8 +59,8 @@ public class State implements Serializable{
 		return Cities;
 	}
 
-	public void setCities(List<City> Cities) {
-		this.Cities = Cities;
+	public void setCities(List<City> cities) {
+		Cities = cities;
 	}
 
 	@Override
@@ -80,6 +87,10 @@ public class State implements Serializable{
 			return false;
 		return true;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "State [id=" + id + ", uf=" + uf + ", name=" + name + ", Cities=" + Cities + "]";
+	}
 	
 }
