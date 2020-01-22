@@ -46,6 +46,9 @@ public class DBService {
 	
 	@Autowired
 	private StateService stateService;
+	
+	@Autowired
+	private CnaeService cnaeService;
 
 	public void instatiateTestDatabase() throws ParseException {
 		
@@ -228,7 +231,10 @@ public class DBService {
 					Status status = null;
 					Date statusDate = null;
 					Date activeStartDate = null;
-					Cnae fiscalCnae = null;
+					
+					Integer cnaeId = Integer.parseInt(reg[6]);
+					Cnae fiscalCnae = cnaeService.find(cnaeId);
+					
 					LegalNature legalNature = null;
 					Size sizeCompany = null;
 					Double shareCapital = null;
