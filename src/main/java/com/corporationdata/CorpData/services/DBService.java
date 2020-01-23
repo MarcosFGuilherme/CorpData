@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -265,6 +266,15 @@ public class DBService {
 					String complement = reg[21];
 					String email = reg[26];
 					Corporation obj = new Corporation(document, companyName, fantasyName, status, statusDate, activeStartDate, fiscalCnae, legalNature, sizeCompany, shareCapital, simpleOption, meiOption, typeStreet, address, neighborhood, zipCode, city, number, complement, email);
+					List<String> ph = new ArrayList<>();
+					if (!reg[22].equals("0") ) {
+						ph.add(reg[22]+ "-" + reg[23]  );
+					}
+					if (!reg[24].equals("0") ) {
+						ph.add(reg[24]+ "-" + reg[25]);
+					}
+					obj.getPhones().addAll(ph);
+					
 					corp.add(obj);
 				}
 				line = br.readLine() ;
