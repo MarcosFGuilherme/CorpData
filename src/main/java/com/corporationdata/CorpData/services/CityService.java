@@ -31,16 +31,13 @@ public class CityService {
 	}
 	
 	public City findByNameAndUf(String name, String uf) {
+		List<City> obj = repo.findByName(name);
 		City city = null;
-		LOG.info("CIdade:" + name + " | Estado: " + uf);
-//		List<City> obj = repo.findByName(name);
-//		for (City c : obj) {
-//			LOG.info("Cidade:" + c);
-//			if ( c.getstate().getUf() == uf) {
-//				city = c;
-//			}
-//		}
-//		LOG.info("Cidade escolhida:" + city);
+		for (City c : obj) {
+			if ( c.getstate().getUf().equals(uf)) {
+				city = c;
+			}
+		}
 		return city;
 	}
 }

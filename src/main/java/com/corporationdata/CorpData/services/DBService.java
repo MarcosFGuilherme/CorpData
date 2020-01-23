@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -61,6 +62,7 @@ public class DBService {
 	public void instatiateTestDatabase() throws ParseException {
 		
 		String path = "";
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		
 		/*
 		 * Inserindo os dados de [States]
@@ -227,18 +229,13 @@ public class DBService {
 					for (int i=1; i<3;i++) {
 						line = line.replace(";;", ";null;");
 					}
-					System.out.println("Linha:" + line);
-					
-					
 					String reg[] = line.split(";");
-					System.out.println("Tamnho do registro:" + reg.length);
-					
 					String document	=	reg[0];
 					String companyName = reg[1];
 					String fantasyName = reg[2];
-					Status status = null;
-					Date statusDate = null;
-					Date activeStartDate = null;
+					Status status = Status.toEnum(Integer.parseInt(reg[3]));
+					Date statusDate = sdf.parse(reg[4]);
+					Date activeStartDate = sdf.parse(reg[5]);
 					
 					Integer cnaeId = Integer.parseInt(reg[6]);
 					Cnae fiscalCnae = cnaeService.find(cnaeId);
@@ -246,10 +243,14 @@ public class DBService {
 					Integer legalNatureId = Integer.parseInt(reg[8]);
 					LegalNature legalNature = legalNatureService.find(legalNatureId);
 					
-					Size sizeCompany = null;
-					Double shareCapital = null;
-					Simple	simpleOption = null;
-					Mei	meiOption = null;
+					Size sizeCompany = Size.toEnum( Integer.parseInt(reg[10]));
+					
+					Double shareCapital =  Double.parseDouble(reg[11]);
+					
+					Simple	simpleOption = Simple.toEnum( Integer.parseInt(reg[12]));
+					
+					Mei	meiOption = Mei.toEnum( Integer.parseInt(reg[13]));
+					
 					String typeStreet = reg[14];
 					String address = reg[15];
 					String neighborhood = reg[16];
@@ -258,6 +259,7 @@ public class DBService {
 					String uf = reg[18];
 					String nameCity = reg[19];
 					City city = cityService.findByNameAndUf(nameCity, uf);
+					System.out.println(city);
 					
 					String number = reg[20];
 					String complement = reg[21];

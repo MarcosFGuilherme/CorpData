@@ -18,9 +18,6 @@ public class State implements Serializable{
 	private Integer id;
 	private String uf;
 	private String name;
-	@JsonIgnore
-	@OneToMany(mappedBy="state")
-	private List<City> Cities = new ArrayList<>();
 	
 	public State() {}
 
@@ -55,14 +52,6 @@ public class State implements Serializable{
 		this.name = name;
 	}
 
-	public List<City> getCities() {
-		return Cities;
-	}
-
-	public void setCities(List<City> cities) {
-		Cities = cities;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -90,7 +79,7 @@ public class State implements Serializable{
 
 	@Override
 	public String toString() {
-		return "State [id=" + id + ", uf=" + uf + ", name=" + name + ", Cities=" + Cities + "]";
+		return "State [id=" + id + ", uf=" + uf + ", name=" + name + "]";
 	}
 	
 }

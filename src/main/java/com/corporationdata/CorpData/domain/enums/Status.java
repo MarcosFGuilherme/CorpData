@@ -1,9 +1,12 @@
 package com.corporationdata.CorpData.domain.enums;
 
 public enum Status {
-	ACTIVE(1,"Ativa"),
-	INACTIVE(2, "Inativa"),
-	OTHES(0, "BAIXADOS,INAMITOS, ETC");
+	OTHES(0, "BAIXADOS,INAMITOS, ETC"),
+	NULL(1,"NULA"),
+	ACTIVE(2,"ATIVA"),
+	SUSPENDED(3, "SUSPENSA"),
+	INACTIVE(4, "INAPTA");
+	
 	
 	private Integer code;
 	private String description;
@@ -19,7 +22,7 @@ public enum Status {
 		return description;
 	}
 	
-	public Status toEnum (Integer code) {
+	public static Status toEnum (Integer code) {
 		if (code == null) {
 			return null;
 		}
