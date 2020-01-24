@@ -10,6 +10,9 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.corporationdata.CorpData.domain.City;
@@ -21,6 +24,7 @@ import com.corporationdata.CorpData.domain.enums.Simple;
 import com.corporationdata.CorpData.domain.enums.Size;
 import com.corporationdata.CorpData.domain.enums.Status;
 import com.corporationdata.CorpData.repositories.CorporationRepository;
+import com.corporationdata.CorpData.services.exception.ObjectNotFoundException;
 
 @Service
 public class CorporationService {
@@ -109,5 +113,18 @@ public class CorporationService {
 		}
 		
 		repo.saveAll(corp);
+	}
+	
+	public Corporation find(String document) {
+		Corporation obj = repo.findByDocument(document);
+		if (obj == null) {
+			throw new ObjectNotFoundException("Objeto não encontrado! Document: " + document + ", Tipo: " + Corporation.class.getName());
+		}
+		return obj;
+	}
+	
+	public Page<Corporation> findPage(Integer page, Integer linesPerPage, String orderBy, String direction){
+		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction),orderBy);
+		return repo.findAll(pageRequest);
 	}
 }
