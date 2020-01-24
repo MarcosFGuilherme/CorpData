@@ -61,9 +61,7 @@ public class StateService {
 		} catch (IOException e) {
 			System.out.println("Error: " + e.getMessage());
 		}
-		/*
-		 * Gravando no banco os dados das classes.
-		 */
+		
 		repo.saveAll(states);
 	}
 }
