@@ -43,7 +43,7 @@ public class CityService {
 		List<City> obj = repo.findByName(name);
 		City city = null;
 		for (City c : obj) {
-			if ( c.getstate().getUf().equals(uf)) {
+			if ( c.getState().getUf().equals(uf)) {
 				city = c;
 			}
 		}
@@ -63,11 +63,10 @@ public class CityService {
 					l++;
 				}
 				else {
-					line = line + ";";
-					for (int i=1; i<3;i++) {
-						line = line.replace(";;", ";null;");
-					}
-					String reg[] = line.split(";");
+					line = line.replace("|", "#");
+//					System.out.println("[" + line + "]");
+					String reg[] = line.split("#");
+//					System.out.println(reg.length);
 					Integer id = Integer.parseInt(reg[0]);
 					String name = reg[1];
 					Double latidude = Double.parseDouble(reg[2]);

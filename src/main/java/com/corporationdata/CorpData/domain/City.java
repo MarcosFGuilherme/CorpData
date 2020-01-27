@@ -42,11 +42,11 @@ public class City implements Serializable{
 		this.id = id;
 	}
 
-	public String getname() {
+	public String getName() {
 		return name;
 	}
 
-	public void setname(String name) {
+	public void setName(String name) {
 		this.name = name;
 	}
 	
@@ -74,11 +74,11 @@ public class City implements Serializable{
 		this.capital = capital;
 	}
 
-	public State getstate() {
+	public State getState() {
 		return state;
 	}
 
-	public void setstate(State state) {
+	public void setState(State state) {
 		this.state = state;
 	}
 

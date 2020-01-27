@@ -44,11 +44,10 @@ public class CnaeService {
 					l++;
 				}
 				else {
-					line = line + ";";
-					for (int i=1; i<3;i++) {
-						line = line.replace(";;", ";null;");
-					}
-					String reg[] = line.split(";");
+					line = line.replace("|", "#");
+//					System.out.println("[" + line + "]");
+					String reg[] = line.split("#");
+//					System.out.println(reg.length);
 					Integer id	=	Integer.parseInt(reg[0]);
 					String name = 	reg[1];
 					

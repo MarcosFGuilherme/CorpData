@@ -1,5 +1,6 @@
 package com.corporationdata.CorpData.resources;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.corporationdata.CorpData.domain.Corporation;
+import com.corporationdata.CorpData.domain.dto.CorporationDTO;
 import com.corporationdata.CorpData.services.CorporationService;
 
 
@@ -39,4 +41,19 @@ public class CorporationResource {
 		return ResponseEntity.ok().body(list);
 	}
 	
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public ResponseEntity<Page<CorporationDTO>> findPage(
+			@RequestParam(value="city", defaultValue = "0") Integer cityId, 
+			@RequestParam(value="page", defaultValue = "0") Integer page, 
+			@RequestParam(value="linesPerPage", defaultValue = "24") Integer linesPerPage, 
+			@RequestParam(value="orderBy", defaultValue = "document") String orderBy, 
+			@RequestParam(value="direction", defaultValue = "ASC") String direction) {
+		
+//		String nomeDecoded = URL.decodeParam(nome);
+//		List<Integer> ids = URL.decodeIntList(categorias);
+		
+		Page<Corporation> list = service.search(cityId,  page, linesPerPage, orderBy, direction);
+		Page<CorporationDTO> listDto = list.map(obj -> new CorporationDTO(obj));
+		return ResponseEntity.ok().body(listDto);
+	}
 }

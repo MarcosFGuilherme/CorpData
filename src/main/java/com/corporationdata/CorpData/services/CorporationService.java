@@ -19,12 +19,14 @@ import com.corporationdata.CorpData.domain.City;
 import com.corporationdata.CorpData.domain.Cnae;
 import com.corporationdata.CorpData.domain.Corporation;
 import com.corporationdata.CorpData.domain.LegalNature;
+import com.corporationdata.CorpData.domain.dto.CorporationDTO;
 import com.corporationdata.CorpData.domain.enums.Mei;
 import com.corporationdata.CorpData.domain.enums.Simple;
 import com.corporationdata.CorpData.domain.enums.Size;
 import com.corporationdata.CorpData.domain.enums.Status;
 import com.corporationdata.CorpData.repositories.CorporationRepository;
 import com.corporationdata.CorpData.services.exception.ObjectNotFoundException;
+
 
 @Service
 public class CorporationService {
@@ -55,17 +57,17 @@ public class CorporationService {
 					l++;
 				}
 				else {
-					line = line + ";";
-					for (int i=1; i<3;i++) {
-						line = line.replace(";;", ";null;");
-					}
-					String reg[] = line.split(";");
+					line = line.replace("|", "#");
+					String reg[] = line.split("#");
 					String document	=	reg[0];
 					String companyName = reg[1];
 					String fantasyName = reg[2];
 					Status status = Status.toEnum(Integer.parseInt(reg[3]));
+					reg[5] = reg[5].replace("null", "1900-01-01");
 					Date statusDate = sdf.parse(reg[4]);
-					Date activeStartDate = sdf.parse(reg[5]);
+					reg[5] = reg[5].replace("null", "1900-01-01");
+					Date  activeStartDate = sdf.parse(reg[5]);
+					
 					
 					Integer cnaeId = Integer.parseInt(reg[6]);
 					Cnae fiscalCnae = cnaeService.find(cnaeId);
@@ -126,5 +128,12 @@ public class CorporationService {
 	public Page<Corporation> findPage(Integer page, Integer linesPerPage, String orderBy, String direction){
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction),orderBy);
 		return repo.findAll(pageRequest);
+	}
+	
+	public Page<Corporation> search(Integer cityId, Integer page, Integer linesPerPage, String orderBy, String direction){
+		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction),orderBy);
+		if  (cityId > 0) { return repo.findList(cityId,pageRequest); }
+		else{ return repo.findAll(pageRequest); }
+		
 	}
 }
