@@ -3,13 +3,16 @@ package com.corporationdata.CorpData.services;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.corporationdata.CorpData.domain.City;
 import com.corporationdata.CorpData.domain.Cnae;
+import com.corporationdata.CorpData.domain.Corporation;
 import com.corporationdata.CorpData.domain.Filter;
 import com.corporationdata.CorpData.domain.Plan;
 import com.corporationdata.CorpData.domain.State;
@@ -34,10 +37,19 @@ public class FilterService {
 	@Autowired
 	private CnaeService cnaeService;
 	
-	public Filter find(Integer id) {
-		Optional<Filter> obj = repo.findById(id);
-		return obj.orElseThrow(() -> new ObjectNotFoundException(
-				"Objeto não encontrado! Id: " + id + ", Tipo: " + Filter.class.getName()));
+	public Filter find(String email) {
+		
+		Filter obj = repo.findByEmail(email);
+		if (obj == null) {
+			throw new ObjectNotFoundException(
+					"Objeto não encontrado! Email: " + email + ", Tipo: " + Corporation.class.getName());
+		}
+		return obj;
+	}
+	
+	public Page<Filter> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
+		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
+		return repo.findAll(pageRequest);
 	}
 	
 	public void initialLoad() {

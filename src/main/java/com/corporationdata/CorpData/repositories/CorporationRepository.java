@@ -21,5 +21,4 @@ public interface CorporationRepository extends JpaRepository<Corporation, Intege
 	@Query("SELECT obj FROM Corporation obj WHERE obj.city.id = :cityId ORDER BY obj.document")
 	Page<Corporation> findList(@Param("cityId") Integer city, Pageable pageRequest);
 	
-//	public void exportList(Integer cityId,  Integer page, Integer linesPerPage, String  orderBy, String direction);
 }

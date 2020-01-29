@@ -19,21 +19,19 @@ public class Filter implements Serializable{
 	
 	@Id
 	private String email;
-	@JsonIgnore
+	
 	@ManyToMany
 	@JoinTable(name = "FILTER_CNAE",
 	joinColumns = @JoinColumn(name = "filter_id"),
 	inverseJoinColumns = @JoinColumn(name = "cnae_id")
 	)
 	private List<Cnae> cnaes  = new ArrayList<>();
-	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "FILTER_STATE",
 	joinColumns = @JoinColumn(name = "filter_id"),
 	inverseJoinColumns = @JoinColumn(name = "state_id")
 	)
 	private List<State> states = new ArrayList<>();
-	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "FILTER_CITY",
 	joinColumns = @JoinColumn(name = "filter_id"),
