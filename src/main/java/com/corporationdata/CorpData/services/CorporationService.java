@@ -142,11 +142,7 @@ public class CorporationService {
 		}
 	}
 
-	public void exportList(Integer cityId) {
-		Integer page = 0;
-		Integer linesPerPage = 25;
-		String orderBy = "document";
-		String direction = "ASC";
+	public void exportList(Integer cityId, Integer page, Integer linesPerPage, String orderBy, String direction) {
 
 		String filter = (cityId>0)?cityId.toString():"All";
 		

@@ -48,12 +48,24 @@ public class CorporationResource {
 			@RequestParam(value="linesPerPage", defaultValue = "24") Integer linesPerPage, 
 			@RequestParam(value="orderBy", defaultValue = "document") String orderBy, 
 			@RequestParam(value="direction", defaultValue = "ASC") String direction) {
-		
 //		String nomeDecoded = URL.decodeParam(nome);
-//		List<Integer> ids = URL.decodeIntList(categorias);
-		service.exportList(cityId);
+//		List<Integer> ids = URL.decodeIntList(categorias);		
+		//service.exportList(cityId);
 		Page<Corporation> list = service.search(cityId,  page, linesPerPage, orderBy, direction);
 		Page<CorporationDTO> listDto = list.map(obj -> new CorporationDTO(obj));
 		return ResponseEntity.ok().body(listDto);
+	}
+	
+	@RequestMapping(value = "/exportlist", method = RequestMethod.GET)
+	public ResponseEntity<Void> exportList(
+			@RequestParam(value="city", defaultValue = "0") Integer cityId, 
+			@RequestParam(value="page", defaultValue = "0") Integer page, 
+			@RequestParam(value="linesPerPage", defaultValue = "25") Integer linesPerPage, 
+			@RequestParam(value="orderBy", defaultValue = "document") String orderBy, 
+			@RequestParam(value="direction", defaultValue = "ASC") String direction) {
+
+		service.exportList(cityId, page, linesPerPage, orderBy, direction);
+		
+		return ResponseEntity.noContent().build();
 	}
 }
