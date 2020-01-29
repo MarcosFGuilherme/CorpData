@@ -197,33 +197,33 @@ public class CorporationDTO implements Serializable {
 	@Override
 	public String toString() {
 		return 	"" 
-				+ cnpj + "#" 
-				+ razao_social + "#" 
-				+ nome_fantasia + "#"
-				+ situacao  + "#"
-				+ data_situacao  + "#"
-				+ abertura  + "#"
-				+ cnae  + "#"
-				+ ramo_de_atividade + "#" 
-				+ codigo_natureza_juridica + "#" 
-				+ natureza_juridica  + "#"
-				+ porte + "#"
-				+ capital_social_r$ + "#" 
-				+ simples_nacional  + "#"
-				+ mei + "#"
-				+ tipo_logradouro  + "#"
-				+ logradouro  + "#"
-				+ bairro + "#"
-				+ cep  + "#"
-				+ uf  + "#"
-				+ municipio + "#" 
-				+ numero  + "#"
-				+ complemento  + "#"
-				+ ddd_1  + "#"
-				+ telefone_1  + "#"
-				+ ddd_2  + "#"
-				+ telefone_2  + "#"
-				+ email;  
+				+ cnpj + "," 
+				+ "\"" + razao_social + "\"" + "," 
+				+ "\"" + nome_fantasia + "\"" + ","
+				+ situacao  + ","
+				+ data_situacao + ","
+				+ abertura  + ","
+				+ cnae  + ","
+				+ "\"" + ramo_de_atividade + "\"" + "," 
+				+ codigo_natureza_juridica + "," 
+				+ "\"" + natureza_juridica  + "\"" + ","
+				+ "\"" + porte + "\"" + ","
+				+ capital_social_r$ + "," 
+				+ "\"" + simples_nacional  + "\"" + ","
+				+ "\"" + mei + "\"" + ","
+				+ "\"" + tipo_logradouro  + "\"" + ","
+				+ "\"" + logradouro  + "\"" + ","
+				+ bairro + ","
+				+ cep  + ","
+				+ uf  + ","
+				+ municipio + "," 
+				+ numero  + ","
+				+ "\"" + complemento  + "\"" + ","
+				+ ddd_1  + ","
+				+ telefone_1  + ","
+				+ ddd_2  + ","
+				+ telefone_2  + ","
+				+ "\"" + email + "\"";  
 	}
 	
 	public String toFields() {
@@ -231,7 +231,7 @@ public class CorporationDTO implements Serializable {
 		for(Field f : getClass().getDeclaredFields())
 		{
 			if (!f.getName().equals("serialVersionUID")) {
-				str = str + f.getName().toUpperCase().replace("_", " ") + "#";
+				str = str + f.getName().toUpperCase().replace("_", " ") + ",";
 			}
 		}
 		return str.substring(0, str.length()-1);
