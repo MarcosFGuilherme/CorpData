@@ -13,6 +13,12 @@ public class DBService {
 	private CorporationService corporationService;
 	
 	@Autowired
+	private PlanService planService;
+	
+	@Autowired
+	private FilterService filterService;
+	
+	@Autowired
 	private StateService stateService;
 	
 	@Autowired
@@ -25,6 +31,7 @@ public class DBService {
 	private CityService	cityService;
 
 	public void instatiateTestDatabase() throws ParseException {
+		
 		
 		/*
 		 * Inserindo os dados de [States]
@@ -46,5 +53,13 @@ public class DBService {
 		 * Inserindo os dados de [Corporation]
 		 */
 		corporationService.initialLoad();
+		/*
+		 * Inserindo os dados de [Plans]
+		 */
+		planService.initialLoad();
+		/*
+		 * Inserindo os dados de [Plans]
+		 */
+		filterService.initialLoad();
 	}
 }
