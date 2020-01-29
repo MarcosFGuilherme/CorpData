@@ -1,8 +1,8 @@
 package com.corporationdata.CorpData.domain.dto;
 
 import java.io.Serializable;
+import java.lang.reflect.Field;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -19,15 +19,15 @@ public class CorporationDTO implements Serializable {
 	private String nome_fantasia;
 	private String situacao;
 	private Date data_situacao;
-	private Date data_inicio_ativ;
-	private Integer cnae_fiscal;
-	private String descricao_cnae;
-	private Integer cod_nat_juridica;
-	private String descricao_natureza_juridica;
+	private Date abertura;
+	private Integer cnae;
+	private String ramo_de_atividade;
+	private Integer codigo_natureza_juridica;
+	private String natureza_juridica;
 	private String porte;
-	private Double capital_social;
-	private String opc_simples;
-	private String opc_mei;
+	private Double capital_social_r$;
+	private String simples_nacional;
+	private String mei;
 	private String tipo_logradouro;
 	private String logradouro;
 	private String bairro;
@@ -52,15 +52,15 @@ public class CorporationDTO implements Serializable {
 		nome_fantasia = obj.getFantasyName();
 		situacao = obj.getStatus().getDescription();
 		data_situacao = obj.getStatusDate();
-		data_inicio_ativ = obj.getActiveStartDate();
-		cnae_fiscal = obj.getFiscalCnae().getId();
-		descricao_cnae = obj.getFiscalCnae().getName();
-		cod_nat_juridica = obj.getLegalNature().getId();
-		descricao_natureza_juridica = obj.getLegalNature().getName();
+		abertura = obj.getActiveStartDate();
+		cnae = obj.getFiscalCnae().getId();
+		ramo_de_atividade = obj.getFiscalCnae().getName();
+		codigo_natureza_juridica = obj.getLegalNature().getId();
+		natureza_juridica = obj.getLegalNature().getName();
 		porte = obj.getSizeCompany().getDescription();
-		capital_social = obj.getShareCapital();
-		opc_simples = obj.getSimpleOption().getDescription();
-		opc_mei = obj.getMeiOption().getDescription();
+		capital_social_r$ = obj.getShareCapital();
+		simples_nacional = obj.getSimpleOption().getDescription();
+		mei = obj.getMeiOption().getDescription();
 		tipo_logradouro = obj.getTypeStreet();
 		logradouro = obj.getAddress();
 		bairro = obj.getNeighborhood();
@@ -74,11 +74,11 @@ public class CorporationDTO implements Serializable {
 		for (Iterator<String> iter = phones.iterator(); iter.hasNext();) {
 			String ph = iter.next();
 			if (n==0) {
-				ddd_1 = ph.substring(0, ph.lastIndexOf("-")-1);
+				ddd_1 = ph.substring(0, ph.lastIndexOf("-")).replace(".0", "");
 				telefone_1 = ph.substring(ph.lastIndexOf("-")+1);
 			}
 			else {
-				ddd_2 = ph.substring(0, ph.lastIndexOf("-")-1);
+				ddd_2 = ph.substring(0, ph.lastIndexOf("-")).replace(".0", "");
 				telefone_2 = ph.substring(ph.lastIndexOf("-")+1);
 			}
 			n++;
@@ -106,40 +106,40 @@ public class CorporationDTO implements Serializable {
 		return data_situacao;
 	}
 
-	public Date getData_inicio_ativ() {
-		return data_inicio_ativ;
+	public Date getAbertura() {
+		return abertura;
 	}
 
-	public Integer getCnae_fiscal() {
-		return cnae_fiscal;
+	public Integer getCnae() {
+		return cnae;
 	}
 
-	public String getDescricao_cnae() {
-		return descricao_cnae;
+	public String getRamo_de_atividade() {
+		return ramo_de_atividade;
 	}
 
-	public Integer getCod_nat_juridica() {
-		return cod_nat_juridica;
+	public Integer getCodigo_natureza_juridica() {
+		return codigo_natureza_juridica;
 	}
 
-	public String getDescricao_natureza_juridica() {
-		return descricao_natureza_juridica;
+	public String getNatureza_juridica() {
+		return natureza_juridica;
 	}
 
 	public String getPorte() {
 		return porte;
 	}
 
-	public Double getCapital_social() {
-		return capital_social;
+	public Double getCapital_social_r$() {
+		return capital_social_r$;
 	}
 
-	public String getOpc_simples() {
-		return opc_simples;
+	public String getSimples_nacional() {
+		return simples_nacional;
 	}
 
-	public String getOpc_mei() {
-		return opc_mei;
+	public String getMei() {
+		return mei;
 	}
 
 	public String getTipo_logradouro() {
@@ -193,6 +193,47 @@ public class CorporationDTO implements Serializable {
 	public String getEmail() {
 		return email;
 	}
+
+	@Override
+	public String toString() {
+		return 	"" 
+				+ cnpj + "#" 
+				+ razao_social + "#" 
+				+ nome_fantasia + "#"
+				+ situacao  + "#"
+				+ data_situacao  + "#"
+				+ abertura  + "#"
+				+ cnae  + "#"
+				+ ramo_de_atividade + "#" 
+				+ codigo_natureza_juridica + "#" 
+				+ natureza_juridica  + "#"
+				+ porte + "#"
+				+ capital_social_r$ + "#" 
+				+ simples_nacional  + "#"
+				+ mei + "#"
+				+ tipo_logradouro  + "#"
+				+ logradouro  + "#"
+				+ bairro + "#"
+				+ cep  + "#"
+				+ uf  + "#"
+				+ municipio + "#" 
+				+ numero  + "#"
+				+ complemento  + "#"
+				+ ddd_1  + "#"
+				+ telefone_1  + "#"
+				+ ddd_2  + "#"
+				+ telefone_2  + "#"
+				+ email;  
+	}
 	
-	
+	public String toFields() {
+		String str="";
+		for(Field f : getClass().getDeclaredFields())
+		{
+			if (!f.getName().equals("serialVersionUID")) {
+				str = str + f.getName().toUpperCase().replace("_", " ") + "#";
+			}
+		}
+		return str.substring(0, str.length()-1);
+	}
 }

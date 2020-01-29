@@ -51,7 +51,7 @@ public class CorporationResource {
 		
 //		String nomeDecoded = URL.decodeParam(nome);
 //		List<Integer> ids = URL.decodeIntList(categorias);
-		
+		service.exportList(cityId);
 		Page<Corporation> list = service.search(cityId,  page, linesPerPage, orderBy, direction);
 		Page<CorporationDTO> listDto = list.map(obj -> new CorporationDTO(obj));
 		return ResponseEntity.ok().body(listDto);
