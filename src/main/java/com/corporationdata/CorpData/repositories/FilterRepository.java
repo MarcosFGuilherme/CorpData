@@ -6,9 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.corporationdata.CorpData.domain.Corporation;
 import com.corporationdata.CorpData.domain.Filter;
-import com.corporationdata.CorpData.domain.State;
 
 
 @Repository
@@ -19,6 +17,8 @@ public interface FilterRepository extends JpaRepository<Filter, Integer> {
 	
 	@Transactional(readOnly = true)
 	public Filter findByEmail(String email);
+
+	public void deleteByEmail(String email);
 }
 
 
