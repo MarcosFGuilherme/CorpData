@@ -54,7 +54,7 @@ public class FilterResource {
 	}
 	
 	/* INSERIR */
-	@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping(value = "/insert",method = RequestMethod.POST)
 	public ResponseEntity<Void> insert(@Valid @RequestBody FilterDTO objDTO){
 		Filter obj = service.fromDTO(objDTO);
 		obj = service.insert(obj);

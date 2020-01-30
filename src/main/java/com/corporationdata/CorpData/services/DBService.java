@@ -58,8 +58,8 @@ public class DBService {
 		 */
 		planService.initialLoad();
 		/*
-		 * Inserindo os dados de [Plans]
+		 * Inserindo os dados de [Filter]
 		 */
-		filterService.initialLoad();
+//		filterService.initialLoad();
 	}
 }

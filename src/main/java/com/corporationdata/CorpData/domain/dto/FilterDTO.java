@@ -17,33 +17,33 @@ public class FilterDTO implements Serializable {
 	
 	@Id
 	private String email;
-	private List<Cnae> cnaes = new ArrayList<>();
-	private List<State> states = new ArrayList<>();
-	private List<City> cities = new ArrayList<>();
+	private List<Integer> cnaes = new ArrayList<>();
+	private List<Integer> states = new ArrayList<>();
+	private List<Integer> cities = new ArrayList<>();
 	private Boolean thereIsEmail;
 	private Boolean thereIsAddress;
 	private Boolean thereIsTelephone;
-	private Plan plan;
+	private Integer plan;
 	
 	public FilterDTO() {}
 
 	public FilterDTO(Filter obj) {
 		super();
 		email = obj.getEmail();
-		cnaes = obj.getCnaes();
-		states = obj.getStates();
-		cities = obj.getCities();
+		cnaes = toCnaesId(obj.getCnaes());
+		states = toStatesId(obj.getStates());
+		cities = toCitiesId(obj.getCities());
 		thereIsEmail =obj.getThereIsEmail();
 		thereIsAddress = obj.getThereIsAddress();
 		thereIsTelephone = obj.getThereIsTelephone();
-		plan = obj.getPlans();
+		plan = obj.getPlans().getId();
 	}
 
 	public String getEmail() {
 		return email;
 	}
 
-	public List<Integer> getCnaes() {
+	private List<Integer> toCnaesId(List<Cnae> cnaes) {
 		List<Integer> list = new ArrayList<>();
 		for(Cnae c: cnaes) {
 			list.add(c.getId());
@@ -51,7 +51,7 @@ public class FilterDTO implements Serializable {
 		return list;
 	}
 
-	public List<Integer> getStates() {
+	private List<Integer> toStatesId(List<State> states) {
 		List<Integer> list = new ArrayList<>();
 		for(State c: states) {
 			list.add(c.getId());
@@ -59,7 +59,7 @@ public class FilterDTO implements Serializable {
 		return list;
 	}
 
-	public List<Integer> getCities() {
+	private List<Integer> toCitiesId(List<City> cities) {
 		List<Integer> list = new ArrayList<>();
 		for(City c: cities) {
 			list.add(c.getId());
@@ -80,8 +80,19 @@ public class FilterDTO implements Serializable {
 	}
 
 	public Integer getPlan() {
-		Integer id = plan.getId();
-		return id;
+		return plan;
+	}
+
+	public List<Integer> getCnaes() {
+		return cnaes;
+	}
+
+	public List<Integer> getStates() {
+		return states;
+	}
+
+	public List<Integer> getCities() {
+		return cities;
 	}
 	
 	

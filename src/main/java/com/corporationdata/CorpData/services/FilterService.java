@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -25,6 +27,8 @@ import com.corporationdata.CorpData.services.exception.ObjectNotFoundException;
 @Service
 public class FilterService {
 
+	private static final Logger LOG =  LoggerFactory.getLogger(FilterService.class);
+	
 	@Autowired
 	private FilterRepository repo;
 	
@@ -96,33 +100,52 @@ public class FilterService {
 		return repo.save(obj);
 	}
 	
-	private void updateDate(Filter newObj, Filter obj) {
-		newObj.setThereIsAddress(obj.getThereIsAddress());
-		newObj.setThereIsEmail(obj.getThereIsEmail());
-		newObj.setThereIsTelephone(obj.getThereIsTelephone());
-	}
-	
-	public Filter update(Filter obj) {
-		Filter newObj = find(obj.getEmail());
-		updateDate(newObj,obj);
-		return repo.save(obj);
-	}
-	
-	public void delete(String email) {
-		find(email);
-		try {
-			repo.deleteByEmail(email);
-		}
-		catch (DataIntegrityViolationException e) {
-			throw new DataIntegrityException("Nao e possivel excluir este Cliente, porque possui pedidos!");
-		}
-	}
+//	private void updateDate(Filter newObj, Filter obj) {
+//		newObj.setThereIsAddress(obj.getThereIsAddress());
+//		newObj.setThereIsEmail(obj.getThereIsEmail());
+//		newObj.setThereIsTelephone(obj.getThereIsTelephone());
+//	}
+//	
+//	public Filter update(Filter obj) {
+//		Filter newObj = find(obj.getEmail());
+//		updateDate(newObj,obj);
+//		return repo.save(obj);
+//	}
+//	
+//	public void delete(String email) {
+//		find(email);
+//		try {
+//			repo.deleteByEmail(email);
+//		}
+//		catch (DataIntegrityViolationException e) {
+//			throw new DataIntegrityException("Nao e possivel excluir este Cliente, porque possui pedidos!");
+//		}
+//	}
 	
 	public Filter fromDTO(FilterDTO objDTO) {
-		Filter obj = null; 
-				
+		String email = objDTO.getEmail();
+		Boolean thereIsEmail = objDTO.getThereIsEmail();
+		Boolean thereIsAddress = objDTO.getThereIsAddress();
+		Boolean thereIsTelephone = objDTO.getThereIsTelephone();
+		List<Cnae> cnaes = new ArrayList<>();
+		for (Integer id : objDTO.getCnaes()) {
+			cnaes.add(cnaeService.find(id));
+		}
+		List<State> states = new ArrayList<>();
+		for (Integer id : objDTO.getStates()) {
+			states.add(stateService.find(id));
+		}
+		List<City> cities = new ArrayList<>();
+		for (Integer id : objDTO.getCities()) {
+			cities.add(cityService.find(id));
+		}
+		Plan plan = planService.find(objDTO.getPlan());
+		Filter obj = new Filter(email, thereIsEmail, thereIsAddress, thereIsTelephone, plan);
+		
+		obj.getCnaes().addAll(cnaes);
+		obj.getCities().addAll(cities);
+		obj.getStates().addAll(states);
 		return obj;
 	}
-
 	
 }

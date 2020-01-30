@@ -11,8 +11,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
 public class Filter implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -43,18 +41,18 @@ public class Filter implements Serializable{
 	private Boolean thereIsTelephone;
 	@ManyToOne
 	@JoinColumn(name="plan_id")
-	private Plan plans;
+	private Plan plan;
 	
 	
 	public Filter() {}
 
-	public Filter(String email, Boolean thereIsEmail, Boolean thereIsAddress, Boolean thereIsTelephone, Plan plans) {
+	public Filter(String email, Boolean thereIsEmail, Boolean thereIsAddress, Boolean thereIsTelephone, Plan plan) {
 		super();
 		this.email = email;
 		this.thereIsEmail = thereIsEmail;
 		this.thereIsAddress = thereIsAddress;
 		this.thereIsTelephone = thereIsTelephone;
-		this.plans = plans;
+		this.plan = plan;
 		
 	}
 
@@ -107,11 +105,11 @@ public class Filter implements Serializable{
 	}
 
 	public Plan getPlans() {
-		return plans;
+		return plan;
 	}
 
-	public void setPlans(Plan plans) {
-		this.plans = plans;
+	public void setPlans(Plan plan) {
+		this.plan = plan;
 	}
 
 	public String getEmail() {

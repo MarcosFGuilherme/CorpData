@@ -36,17 +36,13 @@ public class LegalNatureService {
 		try (BufferedReader br = new BufferedReader(new FileReader(path))) {
 			String line = br.readLine();
 			int l = 0;
-			int n = l;
 			while (line != null) {
-				n++;
 				if ( l == 0) { // pulando a 1 linha que nao interessa por ser o header.
 					l++;
 				}
 				else {
 					line = line.replace("|", "#");
-//					System.out.println("[" + line + "]");
 					String reg[] = line.split("#");
-//					System.out.println(reg.length);
 					Integer id	=	Integer.parseInt(reg[0]);
 					String name = 	reg[1];
 					

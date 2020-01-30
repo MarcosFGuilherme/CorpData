@@ -18,7 +18,7 @@ public interface FilterRepository extends JpaRepository<Filter, Integer> {
 	@Transactional(readOnly = true)
 	public Filter findByEmail(String email);
 
-	public void deleteByEmail(String email);
+//	public void deleteByEmail(String email);
 }
 
 

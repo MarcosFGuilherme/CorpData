@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.corporationdata.CorpData.domain.City;
-import com.corporationdata.CorpData.domain.LegalNature;
 
 
 @Repository
