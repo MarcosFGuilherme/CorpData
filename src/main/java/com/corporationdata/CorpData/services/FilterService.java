@@ -100,28 +100,7 @@ public class FilterService {
 		return repo.save(obj);
 	}
 	
-//	private void updateDate(Filter newObj, Filter obj) {
-//		newObj.setThereIsAddress(obj.getThereIsAddress());
-//		newObj.setThereIsEmail(obj.getThereIsEmail());
-//		newObj.setThereIsTelephone(obj.getThereIsTelephone());
-//	}
-//	
-//	public Filter update(Filter obj) {
-//		Filter newObj = find(obj.getEmail());
-//		updateDate(newObj,obj);
-//		return repo.save(obj);
-//	}
-//	
-//	public void delete(String email) {
-//		find(email);
-//		try {
-//			repo.deleteByEmail(email);
-//		}
-//		catch (DataIntegrityViolationException e) {
-//			throw new DataIntegrityException("Nao e possivel excluir este Cliente, porque possui pedidos!");
-//		}
-//	}
-	
+
 	public Filter fromDTO(FilterDTO objDTO) {
 		String email = objDTO.getEmail();
 		Boolean thereIsEmail = objDTO.getThereIsEmail();

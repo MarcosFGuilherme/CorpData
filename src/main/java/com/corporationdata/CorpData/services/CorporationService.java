@@ -10,6 +10,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,6 +22,7 @@ import org.springframework.stereotype.Service;
 import com.corporationdata.CorpData.domain.City;
 import com.corporationdata.CorpData.domain.Cnae;
 import com.corporationdata.CorpData.domain.Corporation;
+import com.corporationdata.CorpData.domain.Filter;
 import com.corporationdata.CorpData.domain.LegalNature;
 import com.corporationdata.CorpData.domain.dto.CorporationDTO;
 import com.corporationdata.CorpData.domain.enums.Mei;
@@ -132,23 +135,32 @@ public class CorporationService {
 		return repo.findAll(pageRequest);
 	}
 
-	public Page<Corporation> search(Integer cityId, Integer page, Integer linesPerPage, String orderBy,
+	public Page<Corporation> search(Filter filter, Integer page, Integer linesPerPage, String orderBy,
 			String direction) {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
-		if (cityId > 0) {
-			return repo.findList(cityId, pageRequest);
+		if (filter != null) {
+			List<Integer> cities = filter.getCities().stream().map(c -> c.getId()).collect(Collectors.toList());
+			cities = (cities.isEmpty()?null:cities);
+			
+			List<Integer> states = filter.getStates().stream().map(c -> c.getId()).collect(Collectors.toList());
+			states = (states.isEmpty()?null:states);
+
+			List<Integer> cnaes = filter.getCnaes().stream().map(c -> c.getId()).collect(Collectors.toList());
+			cnaes = (cnaes.isEmpty()?null:cnaes);
+			
+			return repo.findList(cities, states, cnaes,   pageRequest);
 		} else {
-			return repo.findAll(pageRequest);
+			return repo.findAll(pageRequest); 
 		}
 	}
 
-	public void exportList(Integer cityId, Integer page, Integer linesPerPage, String orderBy, String direction) {
+	public void exportList(Filter filter, Integer page, Integer linesPerPage, String orderBy, String direction) {
 
-		String filter = (cityId>0)?cityId.toString():"All";
+		String sfilter = (filter!=null)?filter.getEmail().replace(".","_"):"All";
 		
-		String path = "F:\\temp\\out\\ListCompanyBy" + filter + ".csv";
-
-		Page<Corporation> listPage = search(cityId, page, linesPerPage, orderBy, direction);
+		String path = "F:\\temp\\out\\ListCompanyBy" + sfilter + ".csv";
+		
+		Page<Corporation> listPage = search(filter, page, linesPerPage, orderBy, direction);
 		boolean addFile = false;
 		
 		while (!listPage.isEmpty()) {
@@ -168,7 +180,7 @@ public class CorporationService {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			listPage = search(cityId, p, linesPerPage, orderBy, direction);
+			listPage = search(filter, p, linesPerPage, orderBy, direction);
 		}
 	}
 }
