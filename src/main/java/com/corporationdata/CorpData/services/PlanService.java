@@ -8,13 +8,16 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.corporationdata.CorpData.domain.Plan;
+import com.corporationdata.CorpData.domain.dto.PlanDTO;
 import com.corporationdata.CorpData.repositories.PlanRepository;
+import com.corporationdata.CorpData.services.exception.DataIntegrityException;
 import com.corporationdata.CorpData.services.exception.ObjectNotFoundException;
 
 @Service
@@ -39,7 +42,7 @@ public class PlanService {
 	}
 	
 	public Plan findBudget(Integer quantity) {
-		Optional<Plan> obj = repo.findTop1ByTotalCompaniesGreaterThanOrderById(quantity);
+		Optional<Plan> obj = repo.findTop1ByTotalCompaniesGreaterThanEqualOrderById(quantity);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Quantity: " + quantity + ", Tipo: " + Plan.class.getName()));
 	}
@@ -72,5 +75,35 @@ public class PlanService {
 		}
 		
 		repo.saveAll(plans);
+	}
+	
+	public Plan fromDTO(PlanDTO objDTO) {
+		return new Plan(objDTO.getId(), objDTO.getName(),objDTO.getTotalCompanies(), objDTO.getUnitPrice());
+	}
+	
+	public Plan insert(Plan obj) {
+		obj.setId(null);
+		return repo.save(obj);
+	}
+	public Plan update(Plan obj) {
+		Plan newObj = find(obj.getId());
+		updateDate(newObj,obj);
+		return repo.save(obj);
+	}
+	
+	private void updateDate(Plan newObj, Plan obj) {
+		newObj.setName(obj.getName());
+		newObj.setTotalCompanies(obj.getTotalCompanies());
+		newObj.setUnitPrice(obj.getUnitPrice());
+	}
+
+	public void delete(Integer id) {
+		find(id);
+		try {
+			repo.deleteById(id);
+		}
+		catch (DataIntegrityViolationException e) {
+			throw new DataIntegrityException("Nao e possivel excluir este Cliente, porque possui pedidos!");
+		}
 	}
 }
