@@ -20,18 +20,6 @@ public interface CorporationRepository extends JpaRepository<Corporation, Intege
 	@Transactional(readOnly = true)
 	Corporation findByDocument(String document);
 	
-//	@Transactional(readOnly = true)
-//	@Query("SELECT obj FROM Corporation obj WHERE "
-//			+ " 	(obj.city.id in :cities OR :cities is null) "
-//			+ " AND (obj.state.id in :states or :states is null)  "
-//			+ "(obj.cnae.id in :cnaes or :cnaes is null) "
-//			+ " ORDER BY obj.document")
-//	public Page<Corporation> findList(
-//			@Param("cities") List<Integer> cities, 
-//			@Param("states") List<Integer> states,
-//			@Param("cnaes") List<Integer> cnaes,
-//			Pageable pageRequest);
-	
 	@Transactional(readOnly = true)
 	@Query(
 			"SELECT DISTINCT obj FROM Corporation obj LEFT JOIN obj.phones p "
