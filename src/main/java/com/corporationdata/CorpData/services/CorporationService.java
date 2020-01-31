@@ -148,7 +148,12 @@ public class CorporationService {
 			List<Integer> cnaes = filter.getCnaes().stream().map(c -> c.getId()).collect(Collectors.toList());
 			cnaes = (cnaes.isEmpty()?null:cnaes);
 			
-			return repo.findList(cities, states, cnaes,   pageRequest);
+			String thereIsEmail = (filter.getThereIsEmail())?"null":null;
+			String thereIsAddress = (filter.getThereIsAddress())?"null":null;
+			String thereIsTelephone = (filter.getThereIsTelephone())?"null":null;
+//			return repo.findList(cities, states, cnaes, thereIsEmail, thereIsAddress, pageRequest);
+			return repo.findList(cities, states, cnaes, thereIsEmail, thereIsAddress, thereIsTelephone, pageRequest);
+//			return repo.findList(cities, states, cnaes, pageRequest);
 		} else {
 			return repo.findAll(pageRequest); 
 		}

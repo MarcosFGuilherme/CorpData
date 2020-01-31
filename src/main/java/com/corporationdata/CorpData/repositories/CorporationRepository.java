@@ -34,15 +34,22 @@ public interface CorporationRepository extends JpaRepository<Corporation, Intege
 	
 	@Transactional(readOnly = true)
 	@Query(
-			"SELECT obj FROM Corporation obj WHERE "
-			+ "		(obj.city.id IN :cities OR :cities is null) "
-			+ "AND  (obj.city.state.id IN :states OR :states is null) "
-			+ "AND  (obj.fiscalCnae.id IN :cnaes OR :cnaes is null) "
+			"SELECT DISTINCT obj FROM Corporation obj LEFT JOIN obj.phones p "
+			+ "WHERE "
+			+ "		(obj.city.id IN :cities OR :cities IS NULL) "
+			+ "AND  (obj.city.state.id IN :states OR :states IS NULL) "
+			+ "AND  (obj.fiscalCnae.id IN :cnaes OR :cnaes IS NULL) "
+			+ "AND 	(obj.email <> :thereIsEmail OR :thereIsEmail IS NULL) "
+			+ "AND 	(obj.address <> :thereIsAddress OR :thereIsAddress IS NULL) "
+			+ "AND	(p IS NOT NULL OR :thereIsTelephone IS NULL ) "
 			+ "ORDER BY obj.document")
 	public Page<Corporation> findList(
 			@Param("cities") List<Integer> cities,  
 			@Param("states") List<Integer> states,
 			@Param("cnaes")  List<Integer> cnaes,
+			@Param("thereIsEmail")  String thereIsEmail,
+			@Param("thereIsAddress")  String thereIsAddress,
+			@Param("thereIsTelephone")  String thereIsTelephone,
 			Pageable pageRequest);
 	
 }
